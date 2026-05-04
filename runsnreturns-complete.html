@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runs N Returns — Full Operations Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--m:#7B0020;--md:#4a0012;--cr:#FDF6EC;--cd:#f0e6d0;--bl:#141010;--wh:#fff;--gy:#777;--br:#e4dbd0;--gn:#1a6b1a;--am:#d4780a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--cr);font-family:'DM Sans',sans-serif;color:var(--bl);overflow-x:hidden;}
+/* NAV */
+nav{background:var(--m);position:sticky;top:0;z-index:999;box-shadow:0 2px 20px rgba(0,0,0,.4);}
+.nav-top{padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.nav-logo{font-family:'Bebas Neue';font-size:22px;color:#fff;letter-spacing:.08em;}
+.nav-info{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.15);color:#ffd090;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.06em;}
+.badge.green{color:#90ffb0;}
+.nav-tabs{display:flex;overflow-x:auto;padding:0 20px 10px;gap:5px;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.tab{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:none;padding:7px 14px;border-radius:20px;font-family:'DM Sans';font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;letter-spacing:.03em;}
+.tab:hover{background:rgba(255,255,255,.2);color:#fff;}
+.tab.on{background:#fff;color:var(--m);font-weight:700;}
+/* PAGES */
+.pg{display:none;animation:fadeUp .25s ease both;}
+.pg.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+/* LAYOUT */
+.w{max-width:960px;margin:0 auto;padding:40px 20px;}
+.w-sm{max-width:680px;margin:0 auto;padding:40px 20px;}
+.lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--m);font-weight:700;margin-bottom:8px;}
+.h1{font-family:'Bebas Neue';font-size:clamp(46px,9vw,88px);line-height:.92;margin-bottom:20px;}
+.h2{font-family:'Bebas Neue';font-size:clamp(30px,5vw,52px);line-height:1;margin-bottom:14px;}
+.h3{font-weight:700;font-size:16px;margin-bottom:8px;}
+.body{font-size:14px;line-height:1.7;color:var(--gy);margin-bottom:14px;}
+/* CARDS */
+.card{background:#fff;border-radius:14px;border:1.5px solid var(--br);padding:20px;}
+.card-m{background:var(--m);border-radius:14px;padding:20px;}
+.card-bl{background:var(--bl);border-radius:14px;padding:20px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+/* HERO */
+.hero{background:var(--m);min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.03);}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.03);}
+.hero-title{font-family:'Bebas Neue';font-size:clamp(80px,16vw,160px);color:#fff;line-height:.88;letter-spacing:.02em;position:relative;z-index:2;}
+.hero-ital{font-family:'Playfair Display';font-style:italic;font-weight:400;font-size:.58em;display:block;color:rgba(255,255,255,.55);}
+.hero-sub{font-size:clamp(15px,2.5vw,20px);color:rgba(255,255,255,.55);margin-top:16px;font-weight:300;position:relative;z-index:2;}
+.hero-spots{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#ffd090;font-size:13px;font-weight:700;padding:9px 22px;border-radius:30px;margin-top:20px;position:relative;z-index:2;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px;position:relative;z-index:2;}
+.btn{border:none;padding:12px 28px;border-radius:40px;font-family:'DM Sans';font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:transform .18s;}
+.btn:hover{transform:scale(1.04);}
+.btn-w{background:#fff;color:var(--m);}
+.btn-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);}
+/* SLOGAN */
+.slogan-sec{background:var(--bl);padding:72px 20px;text-align:center;}
+.s-q{font-family:'Bebas Neue';font-size:clamp(30px,6vw,64px);color:rgba(255,255,255,.16);line-height:1.1;margin-bottom:4px;}
+.s-a{font-family:'Bebas Neue';font-size:clamp(44px,8vw,90px);color:#fff;line-height:1;letter-spacing:.02em;}
+.s-div{width:52px;height:2px;background:var(--m);margin:36px auto;}
+/* PRICING BANNER */
+.price-bar{background:var(--m);padding:32px 20px;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;text-align:center;}
+.price-item{color:#fff;}
+.price-amt{font-family:'Bebas Neue';font-size:56px;color:#fff;line-height:1;}
+.price-lbl{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.price-sep{width:1px;height:60px;background:rgba(255,255,255,.2);}
+/* FORM ELEMENTS */
+.fg{margin-bottom:14px;}
+.fl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gy);margin-bottom:5px;display:block;}
+.fi,.fs,.ft{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:9px;font-family:'DM Sans';font-size:14px;color:var(--bl);background:#fafaf8;transition:border-color .2s;}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:var(--m);}
+.ft{min-height:80px;resize:vertical;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fsub{background:var(--m);color:#fff;border:none;padding:14px;border-radius:10px;font-family:'DM Sans';font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:6px;transition:opacity .2s;}
+.fsub:hover{opacity:.88;}
+.fnote{font-size:11px;color:var(--gy);text-align:center;margin-top:8px;line-height:1.55;}
+/* COPY BOX */
+.cbox{background:#f0ebe3;border-radius:12px;padding:16px;position:relative;margin-top:10px;}
+.ctext{font-size:13px;line-height:1.7;color:#333;white-space:pre-wrap;font-family:'DM Sans';}
+.cbtn{background:var(--m);color:#fff;border:none;padding:6px 14px;border-radius:18px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.06em;margin-top:10px;}
+.cbtn:hover{opacity:.85;}
+.cbtn.ok{background:var(--gn);}
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--br);}
+.step:last-child{border-bottom:none;}
+.step-n{font-family:'Bebas Neue';font-size:52px;color:#eee;line-height:1;min-width:54px;}
+.step-c{padding-top:4px;}
+.step-title{font-weight:700;font-size:15px;margin-bottom:5px;}
+.step-text{font-size:13px;color:var(--gy);line-height:1.65;}
+.step-tag{display:inline-block;background:#fde8e8;color:var(--m);font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;margin-top:7px;letter-spacing:.06em;text-transform:uppercase;}
+/* DORMS */
+.dorm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.dorm-card{background:#fff;border:1.5px solid var(--br);border-radius:12px;padding:14px;}
+.dorm-name{font-weight:700;font-size:13px;margin-bottom:3px;}
+.dorm-addr{font-size:11px;color:var(--gy);line-height:1.5;}
+.dorm-pickup{font-size:11px;color:var(--gn);margin-top:5px;font-weight:600;}
+.dorm-stop{display:inline-block;background:#fde8e8;color:var(--m);font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:5px;letter-spacing:.06em;}
+/* DROP LOCS */
+.drop-card{background:#fff;border:1.5px solid var(--br);border-radius:14px;padding:16px;display:flex;gap:14px;margin-bottom:10px;}
+.drop-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
+.drop-info{flex:1;}
+.drop-name{font-weight:700;font-size:14px;margin-bottom:3px;}
+.drop-addr{font-size:12px;color:var(--gy);}
+.drop-hours{font-size:11px;color:var(--gn);margin-top:3px;font-weight:600;}
+.drop-use{font-size:11px;color:var(--m);margin-top:3px;font-weight:600;}
+/* IG POSTS */
+.ig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ig-card{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid var(--br);}
+.ig-img{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;position:relative;overflow:hidden;}
+.ig-img::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07);}
+.ig-ic{font-size:44px;margin-bottom:10px;position:relative;z-index:2;}
+.ig-head{font-family:'Bebas Neue';font-size:34px;color:#fff;line-height:1;letter-spacing:.03em;position:relative;z-index:2;}
+.ig-sub{font-size:11px;color:rgba(255,255,255,.55);margin-top:7px;position:relative;z-index:2;}
+.ig-cap{padding:14px 16px;}
+.ig-cap-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gy);margin-bottom:5px;}
+.ig-cap-text{font-size:12px;line-height:1.6;color:#333;white-space:pre-wrap;}
+/* POSTER */
+.poster{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.14);max-width:380px;}
+.p-hdr{padding:28px 24px 20px;position:relative;overflow:hidden;}
+.p-hdr::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.07);}
+.p-badge{display:inline-block;background:rgba(255,255,255,.14);color:rgba(255,255,255,.8);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px;}
+.p-q{font-family:'Playfair Display';font-style:italic;font-size:17px;color:rgba(255,255,255,.55);margin-bottom:8px;line-height:1.35;}
+.p-a{font-family:'Bebas Neue';font-size:50px;color:#fff;line-height:.95;letter-spacing:.02em;position:relative;z-index:2;}
+.p-bod{padding:20px 24px;}
+.p-row{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:13px;color:#333;}
+.p-dot{width:7px;height:7px;border-radius:50%;background:var(--m);flex-shrink:0;}
+.p-ref{background:#fff8ef;border:1.5px dashed #e8a020;border-radius:8px;padding:9px 12px;font-size:12px;color:#555;margin-bottom:12px;}
+.p-ref strong{display:block;font-size:13px;color:#111;margin-bottom:2px;}
+.p-foot{background:var(--m);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.p-handle{font-family:'Bebas Neue';font-size:17px;color:#fff;letter-spacing:.06em;}
+.p-pill{background:#fff;color:var(--m);font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;}
+/* CALCULATOR */
+.calc-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--br);}
+.calc-item:last-child{border-bottom:none;}
+.calc-name{flex:1;font-size:13px;}
+.calc-price{font-size:13px;font-weight:500;min-width:50px;text-align:right;}
+.calc-remove{background:none;border:none;color:#bbb;font-size:16px;cursor:pointer;padding:0 4px;}
+.calc-remove:hover{color:var(--m);}
+.calc-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:14px;}
+.calc-total-row.big{font-size:18px;font-weight:700;border-top:2px solid var(--bl);margin-top:6px;padding-top:12px;}
+.calc-total-row.fee{color:var(--m);font-weight:700;}
+.calc-total-row.discount{color:var(--gn);}
+/* RECEIPT PREVIEW */
+.receipt-preview{background:var(--m);border-radius:16px;padding:24px;margin-top:20px;}
+.receipt-preview pre{font-family:'DM Sans';font-size:12px;color:rgba(255,255,255,.8);white-space:pre-wrap;line-height:1.7;}
+/* SPOTS BAR */
+.spots-wrap{background:#fff;border-radius:12px;border:1.5px solid var(--br);padding:16px 18px;margin-bottom:18px;}
+.spots-track{background:#f0e0e0;border-radius:20px;height:8px;overflow:hidden;margin:6px 0;}
+.spots-fill{background:var(--m);height:100%;border-radius:20px;transition:width .5s;}
+/* CHECKLIST */
+.check-list{display:flex;flex-direction:column;gap:10px;}
+.check-item{background:#fff;border:1.5px solid var(--br);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;}
+.check-item input[type=checkbox]{width:17px;height:17px;accent-color:var(--m);margin-top:2px;flex-shrink:0;cursor:pointer;}
+.check-label{font-size:13px;line-height:1.55;}
+.check-label strong{display:block;margin-bottom:2px;font-size:14px;}
+.check-label span{color:var(--gy);}
+.ctag{margin-left:auto;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.ctag.now{background:#fde8e8;color:var(--m);}
+.ctag.soon{background:#fff5e0;color:#8a4000;}
+.ctag.later{background:#e8f5e8;color:var(--gn);}
+/* ROUTE STEPS */
+.route-step{display:flex;gap:12px;padding-bottom:14px;}
+.route-num{width:30px;height:30px;border-radius:50%;background:var(--m);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.route-num.green{background:var(--gn);}
+.route-line{width:2px;background:var(--br);margin:34px 0 0 14px;position:absolute;}
+.route-content{flex:1;padding-top:4px;}
+.route-title{font-weight:700;font-size:14px;margin-bottom:3px;}
+.route-sub{font-size:12px;color:var(--gy);line-height:1.5;}
+/* TJ ITEMS */
+.tj-section{background:#fff;border-radius:14px;border:1.5px solid var(--br);overflow:hidden;margin-bottom:14px;}
+.tj-head{background:var(--m);padding:10px 16px;display:flex;align-items:center;gap:8px;}
+.tj-head-name{font-family:'Bebas Neue';font-size:20px;color:#fff;letter-spacing:.04em;}
+.tj-items{padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.tj-item{font-size:12px;color:#333;display:flex;align-items:center;gap:6px;cursor:pointer;padding:3px;border-radius:6px;transition:background .15s;}
+.tj-item:hover{background:#fef0f0;}
+.tj-dot{width:5px;height:5px;border-radius:50%;background:var(--m);flex-shrink:0;}
+/* GOOGLE LINKS */
+.glink{background:#fff;border:1.5px solid var(--br);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:12px;cursor:pointer;transition:border-color .2s;}
+.glink:hover{border-color:var(--m);}
+.glink-icon{font-size:32px;flex-shrink:0;}
+.glink-title{font-weight:700;font-size:15px;margin-bottom:4px;}
+.glink-desc{font-size:12px;color:var(--gy);line-height:1.5;}
+.glink-btn{margin-left:auto;background:var(--m);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+/* BOX SIGN */
+.box-sign{background:#fff;border-radius:14px;border:1.5px solid var(--br);overflow:hidden;max-width:340px;}
+.box-sign-hdr{background:var(--m);padding:20px;text-align:center;}
+.box-sign-body{padding:16px;}
+/* SCHEDULE */
+.sched-row{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--br);align-items:flex-start;}
+.sched-time{font-size:13px;font-weight:700;color:var(--m);min-width:70px;padding-top:1px;}
+.sched-text{font-size:13px;color:var(--bl);line-height:1.5;}
+/* RESPONSIVE */
+@media(max-width:620px){
+  .g2,.frow,.dorm-grid,.ig-grid,.g3{grid-template-columns:1fr;}
+  .price-sep{display:none;}
+  .w,.w-sm{padding:28px 14px;}
+  .nav-top{padding:8px 14px;}
+  .nav-tabs{padding:0 14px 8px;}
+  .price-bar{gap:20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-logo">Runs N Returns 🐾</div>
+    <div class="nav-info">
+      <div class="badge">⚡ 15 orders/week max</div>
+      <div class="badge green">Pay first · always</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab on" onclick="go('home',this)">🏠 Home</button>
+    <button class="tab" onclick="go('order',this)">📋 Order</button>
+    <button class="tab" onclick="go('calc',this)">🧮 Calculator</button>
+    <button class="tab" onclick="go('tj',this)">🛒 TJ's Menu</button>
+    <button class="tab" onclick="go('returns',this)">📦 Returns</button>
+    <button class="tab" onclick="go('dorms',this)">🏢 Dorms</button>
+    <button class="tab" onclick="go('route',this)">🗺 Route</button>
+    <button class="tab" onclick="go('pay',this)">💸 Payment</button>
+    <button class="tab" onclick="go('posters',this)">🖨 Posters</button>
+    <button class="tab" onclick="go('ig',this)">📸 Instagram</button>
+    <button class="tab" onclick="go('comms',this)">💬 Messages</button>
+    <button class="tab" onclick="go('sheets',this)">📊 Sheets</button>
+    <button class="tab" onclick="go('plan',this)">✅ Launch Plan</button>
+  </div>
+</nav>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div class="pg on" id="home">
+  <div class="hero">
+    <div style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px;">Student-Led · UChicago Only · Hyde Park</div>
+    <h1 class="hero-title">RUNS N<br>RETURNS<span class="hero-ital">your campus errand crew</span></h1>
+    <p class="hero-sub">TJ's groceries · Package returns · Dorm delivered</p>
+    <div class="hero-spots">⚡ Only <strong style="color:#ffd090;">15 orders/week</strong> — spots go fast</div>
+    <div class="hero-btns">
+      <button class="btn btn-w" onclick="go('order',null)">Place an Order</button>
+      <button class="btn btn-o" onclick="go('calc',null)">Price My Groceries</button>
+    </div>
+  </div>
+
+  <div class="slogan-sec">
+    <div class="s-q">TOO LAZY TO RETURN YOUR PACKAGES?</div>
+    <div class="s-a">WE'LL DO IT FOR YOU.</div>
+    <div class="s-div"></div>
+    <div class="s-q">TOO LAZY TO DO YOUR TJ'S GROCERIES?</div>
+    <div class="s-a" style="color:#ff9090;">WE'LL DO THAT TOO.</div>
+    <div style="margin-top:28px;font-family:'Playfair Display';font-style:italic;font-size:18px;color:rgba(255,255,255,.28);">"Trader Joe's has no third-party delivery. We're it."</div>
+  </div>
+
+  <div class="price-bar">
+    <div class="price-item">
+      <div class="price-amt">$20</div>
+      <div class="price-lbl">grocery run flat fee</div>
+    </div>
+    <div class="price-sep"></div>
+    <div class="price-item">
+      <div class="price-amt">$7</div>
+      <div class="price-lbl">package return flat fee</div>
+    </div>
+    <div class="price-sep"></div>
+    <div class="price-item">
+      <div class="price-amt">$25</div>
+      <div class="price-lbl">groceries + return combo</div>
+    </div>
+    <div class="price-sep"></div>
+    <div class="price-item">
+      <div class="price-amt">$5</div>
+      <div class="price-lbl">referral off for both</div>
+    </div>
+  </div>
+
+  <div class="w">
+    <div class="g2">
+      <div style="background:#fff8f0;border-radius:16px;border:2px solid #f5a623;padding:24px;">
+        <div style="font-size:48px;margin-bottom:12px;">🛒</div>
+        <div style="font-family:'Bebas Neue';font-size:28px;color:var(--m);margin-bottom:8px;">TJ'S GROCERY RUNS</div>
+        <div style="font-size:13px;color:#555;line-height:1.65;">Trader Joe's has no DoorDash, no Instacart, no third-party delivery. We're the only option. Send your list — we shop, bag, deliver to your door.</div>
+        <div style="margin-top:12px;background:var(--m);color:#fff;display:inline-block;font-family:'Bebas Neue';font-size:22px;padding:6px 16px;border-radius:8px;letter-spacing:.04em;">$20 flat · any size order</div>
+      </div>
+      <div style="background:var(--m);border-radius:16px;padding:24px;">
+        <div style="font-size:48px;margin-bottom:12px;">📦</div>
+        <div style="font-family:'Bebas Neue';font-size:28px;color:#fff;margin-bottom:8px;">PACKAGE RETURNS</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;">Amazon, SHEIN, whatever. Leave your package in the Runs N Returns box in your dorm package room. We pick up Monday & Friday and drop off at UPS.</div>
+        <div style="margin-top:12px;background:#fff;color:var(--m);display:inline-block;font-family:'Bebas Neue';font-size:22px;padding:6px 16px;border-radius:8px;letter-spacing:.04em;">$7 flat · any package</div>
+      </div>
+    </div>
+
+    <div style="background:var(--bl);border-radius:18px;padding:32px 24px;margin-top:20px;">
+      <div style="font-family:'Bebas Neue';font-size:36px;color:#fff;margin-bottom:16px;">WHY RUNS N RETURNS?</div>
+      <div class="g2">
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px;">
+          <div style="font-size:20px;margin-bottom:8px;">🎓</div>
+          <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">100% student-run</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.55;">Built by UChicago students, for UChicago students. We live in the same dorms. We get it.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px;">
+          <div style="font-size:20px;margin-bottom:8px;">🛒</div>
+          <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">Only TJ's delivery option</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.55;">Instacart and DoorDash don't serve Trader Joe's here. We're the only way to get TJ's delivered.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px;">
+          <div style="font-size:20px;margin-bottom:8px;">📦</div>
+          <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">Box in your dorm</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.55;">We have a labeled pickup box in every dorm package room. Just drop your return and DM us. Done.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:16px;">
+          <div style="font-size:20px;margin-bottom:8px;">⚡</div>
+          <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">Limited & exclusive</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.55;">Max 15 orders/week. Quality over quantity. Order early — spots fill up.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ORDER FORM ══════════════════ -->
+<div class="pg" id="order">
+  <div class="w-sm">
+    <div class="lbl">Place Your Order</div>
+    <div class="h1">LET'S GO.</div>
+    <div class="spots-wrap">
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:700;">Spots this week</span><span id="spots-text" style="color:var(--m);font-weight:700;">11 of 15 open</span></div>
+      <div class="spots-track"><div class="spots-fill" style="width:27%;"></div></div>
+      <div style="font-size:11px;color:var(--gy);">Order now to lock in your spot. Payment confirmed before we run.</div>
+    </div>
+    <div style="background:#fff8f0;border:1.5px solid #f5a623;border-radius:12px;padding:14px 16px;margin-bottom:22px;font-size:13px;color:#7a4000;line-height:1.6;">
+      <strong style="display:block;color:#5a2000;margin-bottom:2px;">💳 Pay first — then we run</strong>
+      We confirm your order, send a Venmo or Zelle request, and go once payment clears. No exceptions.
+    </div>
+    <div style="background:#fff;border-radius:16px;border:1.5px solid var(--br);overflow:hidden;">
+      <div style="background:var(--m);padding:22px 24px 16px;">
+        <div style="font-family:'Bebas Neue';font-size:30px;color:#fff;letter-spacing:.04em;">Runs N Returns — Order Form 🛒📦</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;">@runsnreturns.uc · UChicago only · Max 15 orders/week</div>
+      </div>
+      <div style="padding:24px;">
+        <div class="frow">
+          <div class="fg"><label class="fl">Your Name *</label><input class="fi" type="text" placeholder="First + Last"></div>
+          <div class="fg"><label class="fl">Instagram Handle *</label><input class="fi" type="text" placeholder="@yourhandle"></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">WhatsApp / Phone *</label><input class="fi" type="tel" placeholder="+1 (773) 000-0000"></div>
+          <div class="fg"><label class="fl">Room Number *</label><input class="fi" type="text" placeholder="e.g. 312B"></div>
+        </div>
+        <div class="fg">
+          <label class="fl">Your Dorm *</label>
+          <select class="fs">
+            <option value="">Select your dorm</option>
+            <option>Campus North — 5500 S University Ave</option>
+            <option>Max Palevsky — 1101 E 56th St</option>
+            <option>Breckinridge House — E 59th St</option>
+            <option>Burton-Judson Courts — 1005 E 60th St</option>
+            <option>Renee Granville-Grossman — 6031 S Ellis Ave</option>
+            <option>Woodlawn Commons — 1156 E 61st St</option>
+            <option>Shoreland — 5454 S Shore Dr</option>
+            <option>Pierce Tower — 5514 S University Ave</option>
+            <option>Other (specify in notes)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Service *</label>
+          <select class="fs" id="svc-sel" onchange="toggleFields()">
+            <option value="">What do you need?</option>
+            <option value="grocery">🛒 Grocery Run — $20 flat</option>
+            <option value="return">📦 Package Return — $7 flat</option>
+            <option value="both">🛒📦 Both — $25 flat</option>
+          </select>
+        </div>
+        <div id="grocery-field" style="display:none;">
+          <div class="fg">
+            <label class="fl">Your Grocery List * <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--m);">— or use the calculator tab first</span></label>
+            <textarea class="ft" placeholder="List every item with quantity:&#10;2x bananas&#10;1x oat milk (TJ's brand)&#10;1x sourdough bread&#10;1x frozen orange chicken&#10;(be specific — we match exactly what you write)"></textarea>
+            <div style="margin-top:6px;font-size:11px;color:var(--gy);">Tip: use the 🧮 Calculator tab to price your order before submitting.</div>
+          </div>
+          <div class="fg">
+            <label class="fl">Upload a photo of your list (optional)</label>
+            <input class="fi" type="file" accept="image/*" style="padding:8px;">
+          </div>
+        </div>
+        <div id="return-field" style="display:none;">
+          <div class="fg">
+            <label class="fl">Return Details *</label>
+            <textarea class="ft" placeholder="Describe what you're returning:&#10;— Amazon order (QR code ready? Yes/No)&#10;— What the item is&#10;— Which carrier (Amazon/SHEIN/other)&#10;&#10;We'll DM you for your QR code before pickup."></textarea>
+          </div>
+          <div class="fg">
+            <label class="fl">Photo of package / QR code (optional)</label>
+            <input class="fi" type="file" accept="image/*" style="padding:8px;">
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label class="fl">Preferred Pickup Time *</label>
+            <select class="fs">
+              <option>Monday pickup (before 9am order cutoff)</option>
+              <option>Friday pickup (before 9am order cutoff)</option>
+              <option>ASAP — I'll DM to confirm</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Pay Via *</label>
+            <select class="fs">
+              <option>Venmo</option>
+              <option>Zelle</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="fl">Referral Name (optional — $5 off each)</label>
+          <input class="fi" type="text" placeholder="Friend who referred you">
+        </div>
+        <div class="fg">
+          <label class="fl">Anything else?</label>
+          <textarea class="ft" style="min-height:55px;" placeholder="Allergies, brand preferences, no-substitute items, drop-off instructions…"></textarea>
+        </div>
+        <button class="fsub" onclick="alert('Order submitted! We will DM you within 30 minutes to confirm and send payment. @runsnreturns.uc 🐾')">Submit Order →</button>
+        <p class="fnote">We confirm via Instagram DM or WhatsApp within 30 min · $20 grocery run · $7 return · $25 both · $5 off with referral · Pay before we go</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CALCULATOR ══════════════════ -->
+<div class="pg" id="calc">
+  <div class="w-sm">
+    <div class="lbl">Grocery Cost Calculator</div>
+    <div class="h1">PRICE YOUR<br>ORDER FIRST.</div>
+    <p class="body">Add your TJ's items below. The calculator shows your grocery subtotal, our $20 flat service fee, and exactly what you'll owe. Send the receipt to your customer before you go.</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Customer info (for receipt)</div>
+      <div class="frow">
+        <input class="fi" id="r-name" placeholder="Customer name" style="font-size:13px;" oninput="updateReceipt()">
+        <input class="fi" id="r-dorm" placeholder="Dorm + room" style="font-size:13px;" oninput="updateReceipt()">
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Add items from TJ's</div>
+      <select class="fs" id="quick-add" onchange="quickAdd()" style="margin-bottom:10px;">
+        <option value="">Quick add popular TJ's item…</option>
+        <option value="Bananas (each)|0.25">Bananas (each) — $0.25</option>
+        <option value="Avocado (each)|1.29">Avocado — $1.29</option>
+        <option value="Baby spinach bag|3.49">Baby spinach bag — $3.49</option>
+        <option value="Organic strawberries|4.99">Organic strawberries — $4.99</option>
+        <option value="Cherry tomatoes|2.99">Cherry tomatoes — $2.99</option>
+        <option value="Oat milk|3.49">Oat milk — $3.49</option>
+        <option value="Almond milk|2.99">Almond milk — $2.99</option>
+        <option value="Greek yogurt|1.99">Greek yogurt — $1.99</option>
+        <option value="Eggs 12pk|4.49">Eggs 12pk — $4.49</option>
+        <option value="Shredded cheese|3.49">Shredded cheese — $3.49</option>
+        <option value="Kerrygold butter|4.49">Kerrygold butter — $4.49</option>
+        <option value="Sourdough loaf|3.99">Sourdough loaf — $3.99</option>
+        <option value="Everything bagels|3.99">Everything bagels — $3.99</option>
+        <option value="Whole wheat tortillas|2.99">Whole wheat tortillas — $2.99</option>
+        <option value="Mandarin orange chicken|5.99">Mandarin orange chicken — $5.99</option>
+        <option value="Frozen mac & cheese|2.49">Frozen mac & cheese — $2.49</option>
+        <option value="Cauliflower gnocchi|3.69">Cauliflower gnocchi — $3.69</option>
+        <option value="TJ's pizza|4.99">TJ's pizza — $4.99</option>
+        <option value="Kettle chips|2.99">Kettle chips — $2.99</option>
+        <option value="Dark chocolate bar|1.99">Dark chocolate bar — $1.99</option>
+        <option value="Peanut butter pretzels|3.49">Peanut butter pretzels — $3.49</option>
+        <option value="Dried mango|2.49">Dried mango — $2.49</option>
+        <option value="Pasta|1.99">Pasta — $1.99</option>
+        <option value="Marinara sauce|2.49">Marinara sauce — $2.49</option>
+        <option value="Canned beans|1.29">Canned beans — $1.29</option>
+        <option value="Olive oil|5.99">Olive oil — $5.99</option>
+        <option value="Hummus|3.49">Hummus — $3.49</option>
+        <option value="Jasmine rice|2.99">Jasmine rice — $2.99</option>
+        <option value="Oat milk creamer|3.29">Oat milk creamer — $3.29</option>
+        <option value="Coffee (TJ's)|8.99">Coffee (TJ's whole bean) — $8.99</option>
+      </select>
+      <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;">
+        <input class="fi" id="item-name" placeholder="Custom item name" style="font-size:13px;">
+        <input class="fi" id="item-price" type="number" min="0" step="0.01" placeholder="$" style="font-size:13px;width:70px;">
+        <button class="cbtn" onclick="addItem()" style="margin-top:0;height:42px;border-radius:8px;">Add</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Items</div>
+      <div id="items-list"><div style="font-size:13px;color:var(--gy);text-align:center;padding:16px;">No items yet — add from the list above</div></div>
+      <div id="totals" style="display:none;border-top:1.5px solid var(--br);margin-top:10px;padding-top:10px;">
+        <div class="calc-total-row"><span>Groceries subtotal</span><span id="subtotal-val">$0.00</span></div>
+        <div class="calc-total-row fee"><span>Our service fee (flat)</span><span>$20.00</span></div>
+        <div id="discount-row" class="calc-total-row discount" style="display:none;"><span>Referral discount</span><span>−$5.00</span></div>
+        <div class="calc-total-row big"><span>Customer pays total</span><span id="total-val">$0.00</span></div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+          <input type="checkbox" id="ref-check" onchange="updateReceipt()" style="accent-color:var(--m);">
+          Referral discount (−$5)
+        </label>
+      </div>
+    </div>
+
+    <div id="receipt-wrap" style="display:none;">
+      <div class="receipt-preview">
+        <div style="font-family:'Bebas Neue';font-size:22px;color:#fff;letter-spacing:.06em;margin-bottom:12px;">DM RECEIPT — COPY & SEND</div>
+        <pre id="receipt-text" style=""></pre>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+        <button class="cbtn" onclick="copyReceipt(this)" style="font-size:12px;">Copy Receipt to DM</button>
+        <button class="cbtn" onclick="go('order',null)" style="font-size:12px;background:var(--bl);">Go to Order Form →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TJ'S MENU ══════════════════ -->
+<div class="pg" id="tj">
+  <div class="w">
+    <div class="lbl">Trader Joe's — 1528 E 55th St · Open daily 9am–9pm</div>
+    <div class="h1">WHAT WE<br>CAN GET YOU.</div>
+    <div style="background:var(--m);border-radius:14px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:36px;">🛒</div>
+      <div style="flex:1;">
+        <div style="font-family:'Bebas Neue';font-size:24px;color:#fff;letter-spacing:.04em;">ORDER ANYTHING ON THE SITE TOO</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:3px;">Browse the full TJ's catalog and add any item to your list.</div>
+      </div>
+      <a href="https://www.traderjoes.com/home/products" target="_blank" style="display:inline-block;background:#fff;color:var(--m);font-size:12px;font-weight:700;padding:10px 18px;border-radius:24px;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;">Browse TJ's Website ↗</a>
+    </div>
+    <p style="font-size:13px;color:var(--gy);margin-bottom:20px;line-height:1.6;">Click any item to add it to the calculator. Prices approximate — final cost based on actual receipt.</p>
+    <div class="g2">
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">🥑</div><div class="tj-head-name">PRODUCE</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Bananas (each)',0.25)"><div class="tj-dot"></div>Bananas — $0.25</div>
+          <div class="tj-item" onclick="addToCalc('Avocado',1.29)"><div class="tj-dot"></div>Avocado — $1.29</div>
+          <div class="tj-item" onclick="addToCalc('Baby spinach bag',3.49)"><div class="tj-dot"></div>Spinach bag — $3.49</div>
+          <div class="tj-item" onclick="addToCalc('Strawberries',4.99)"><div class="tj-dot"></div>Strawberries — $4.99</div>
+          <div class="tj-item" onclick="addToCalc('Cherry tomatoes',2.99)"><div class="tj-dot"></div>Cherry tomatoes — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Garlic bulb',0.89)"><div class="tj-dot"></div>Garlic — $0.89</div>
+          <div class="tj-item" onclick="addToCalc('Lemon',0.89)"><div class="tj-dot"></div>Lemon — $0.89</div>
+          <div class="tj-item" onclick="addToCalc('Broccoli crown',1.99)"><div class="tj-dot"></div>Broccoli — $1.99</div>
+        </div>
+      </div>
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">🥛</div><div class="tj-head-name">DAIRY & EGGS</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Oat milk',3.49)"><div class="tj-dot"></div>Oat milk — $3.49</div>
+          <div class="tj-item" onclick="addToCalc('Almond milk',2.99)"><div class="tj-dot"></div>Almond milk — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Greek yogurt',1.99)"><div class="tj-dot"></div>Greek yogurt — $1.99</div>
+          <div class="tj-item" onclick="addToCalc('Eggs 12pk',4.49)"><div class="tj-dot"></div>Eggs 12pk — $4.49</div>
+          <div class="tj-item" onclick="addToCalc('Shredded cheese',3.49)"><div class="tj-dot"></div>Shredded cheese — $3.49</div>
+          <div class="tj-item" onclick="addToCalc('Kerrygold butter',4.49)"><div class="tj-dot"></div>Kerrygold butter — $4.49</div>
+          <div class="tj-item" onclick="addToCalc('Cream cheese',2.99)"><div class="tj-dot"></div>Cream cheese — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Oat creamer',3.29)"><div class="tj-dot"></div>Oat creamer — $3.29</div>
+        </div>
+      </div>
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">🍞</div><div class="tj-head-name">BREAD & BAKERY</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Sourdough loaf',3.99)"><div class="tj-dot"></div>Sourdough — $3.99</div>
+          <div class="tj-item" onclick="addToCalc('Everything bagels',3.99)"><div class="tj-dot"></div>Everything bagels — $3.99</div>
+          <div class="tj-item" onclick="addToCalc('Brioche buns',3.99)"><div class="tj-dot"></div>Brioche buns — $3.99</div>
+          <div class="tj-item" onclick="addToCalc('Crumpets',2.49)"><div class="tj-dot"></div>Crumpets — $2.49</div>
+          <div class="tj-item" onclick="addToCalc('Wheat tortillas',2.99)"><div class="tj-dot"></div>Wheat tortillas — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Pita bread',2.49)"><div class="tj-dot"></div>Pita bread — $2.49</div>
+        </div>
+      </div>
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">❄️</div><div class="tj-head-name">FROZEN MEALS</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Mandarin orange chicken',5.99)"><div class="tj-dot"></div>Orange chicken — $5.99</div>
+          <div class="tj-item" onclick="addToCalc('Frozen mac & cheese',2.49)"><div class="tj-dot"></div>Mac & cheese — $2.49</div>
+          <div class="tj-item" onclick="addToCalc('Cauliflower gnocchi',3.69)"><div class="tj-dot"></div>Cauliflower gnocchi — $3.69</div>
+          <div class="tj-item" onclick="addToCalc('Palak paneer',3.99)"><div class="tj-dot"></div>Palak paneer — $3.99</div>
+          <div class="tj-item" onclick="addToCalc("TJ's pizza",4.99)"><div class="tj-dot"></div>TJ's pizza — $4.99</div>
+          <div class="tj-item" onclick="addToCalc('Frozen brown rice',2.99)"><div class="tj-dot"></div>Brown rice — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Mahi mahi burgers',6.99)"><div class="tj-dot"></div>Mahi mahi — $6.99</div>
+          <div class="tj-item" onclick="addToCalc('Soup dumplings',4.49)"><div class="tj-dot"></div>Soup dumplings — $4.49</div>
+        </div>
+      </div>
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">🍫</div><div class="tj-head-name">SNACKS</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Kettle chips',2.99)"><div class="tj-dot"></div>Kettle chips — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Dark chocolate bar',1.99)"><div class="tj-dot"></div>Dark choc bar — $1.99</div>
+          <div class="tj-item" onclick="addToCalc('Peanut butter pretzels',3.49)"><div class="tj-dot"></div>PB pretzels — $3.49</div>
+          <div class="tj-item" onclick="addToCalc('Dried mango',2.49)"><div class="tj-dot"></div>Dried mango — $2.49</div>
+          <div class="tj-item" onclick="addToCalc('Granola bars',3.99)"><div class="tj-dot"></div>Granola bars — $3.99</div>
+          <div class="tj-item" onclick="addToCalc('Popcorn',2.49)"><div class="tj-dot"></div>Popcorn — $2.49</div>
+        </div>
+      </div>
+      <div class="tj-section">
+        <div class="tj-head"><div style="font-size:16px;">🍝</div><div class="tj-head-name">PANTRY</div></div>
+        <div class="tj-items">
+          <div class="tj-item" onclick="addToCalc('Pasta',1.99)"><div class="tj-dot"></div>Pasta — $1.99</div>
+          <div class="tj-item" onclick="addToCalc('Marinara sauce',2.49)"><div class="tj-dot"></div>Marinara sauce — $2.49</div>
+          <div class="tj-item" onclick="addToCalc('Canned beans',1.29)"><div class="tj-dot"></div>Canned beans — $1.29</div>
+          <div class="tj-item" onclick="addToCalc('Jasmine rice',2.99)"><div class="tj-dot"></div>Jasmine rice — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('Olive oil',5.99)"><div class="tj-dot"></div>Olive oil — $5.99</div>
+          <div class="tj-item" onclick="addToCalc('Hummus',3.49)"><div class="tj-dot"></div>Hummus — $3.49</div>
+          <div class="tj-item" onclick="addToCalc('Everything bagel seasoning',2.99)"><div class="tj-dot"></div>EBB seasoning — $2.99</div>
+          <div class="tj-item" onclick="addToCalc('TJ Coffee whole bean',8.99)"><div class="tj-dot"></div>Coffee — $8.99</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button class="cbtn" onclick="go('calc',null)" style="font-size:13px;padding:10px 24px;">View calculator with added items →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ RETURNS ══════════════════ -->
+<div class="pg" id="returns">
+  <div class="w">
+    <div class="lbl">Package Returns</div>
+    <div class="h1">TOO LAZY<br>TO RETURN IT?<br>GOOD.</div>
+    <div class="g2" style="margin-bottom:24px;">
+      <div class="card">
+        <div style="font-size:36px;margin-bottom:12px;">📦</div>
+        <div class="h3">How it works</div>
+        <div class="steps">
+          <div class="step" style="padding:10px 0;">
+            <div class="step-n" style="font-size:28px;min-width:28px;">1</div>
+            <div class="step-c"><div class="step-title">Generate your QR code</div><div class="step-text">In the Amazon app: Orders → Return → select QR code drop-off. Screenshot it.</div></div>
+          </div>
+          <div class="step" style="padding:10px 0;">
+            <div class="step-n" style="font-size:28px;min-width:28px;">2</div>
+            <div class="step-c"><div class="step-title">Drop in our box OR DM us</div><div class="step-text">Leave your package in the Runs N Returns box in your dorm package room with your name + room taped on. Or DM us directly.</div></div>
+          </div>
+          <div class="step" style="padding:10px 0;">
+            <div class="step-n" style="font-size:28px;min-width:28px;">3</div>
+            <div class="step-c"><div class="step-title">Send us your QR code</div><div class="step-text">DM @runsnreturns.uc your return QR code screenshot. We confirm + send payment request ($7).</div></div>
+          </div>
+          <div class="step" style="padding:10px 0;border-bottom:none;">
+            <div class="step-n" style="font-size:28px;min-width:28px;">4</div>
+            <div class="step-c"><div class="step-title">We drop it off + send receipt</div><div class="step-text">We take your package to UPS (53rd St) on Monday or Friday, scan the QR code, and send you a photo of the receipt.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-m" style="margin-bottom:14px;">
+          <div style="font-family:'Bebas Neue';font-size:28px;color:#fff;letter-spacing:.04em;margin-bottom:8px;">$7 FLAT FEE</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;">Any size package. Any carrier. Picked up from your dorm package room on Monday & Friday. Receipt photo sent same day.</div>
+        </div>
+        <div class="card">
+          <div class="h3">What we accept</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--gn);flex-shrink:0;"></div>Amazon (QR code, no box needed at UPS)</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--gn);flex-shrink:0;"></div>SHEIN, H&M, Zara (prepaid label)</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--gn);flex-shrink:0;"></div>Any UPS or USPS pre-labeled box</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><div style="width:8px;height:8px;border-radius:50%;background:#e8a020;flex-shrink:0;"></div>FedEx (57th St drop-off)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="h3">Drop-off locations we use</div>
+      <div style="margin-top:12px;">
+        <div class="drop-card">
+          <div class="drop-icon">📦</div>
+          <div class="drop-info">
+            <div class="drop-name">UPS Store — PRIMARY</div>
+            <div class="drop-addr">1507 E 53rd St, Chicago IL</div>
+            <div class="drop-hours">Mon–Fri 8:30am–6:30pm · Sat 9–5 · Sun 10–3</div>
+            <div class="drop-use">Best for Amazon QR returns — no box needed</div>
+          </div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-icon">🏬</div>
+          <div class="drop-info">
+            <div class="drop-name">Amazon Locker — Whole Foods</div>
+            <div class="drop-addr">5118 S Lake Park Ave W (at Whole Foods)</div>
+            <div class="drop-hours">Daily 9am–8pm</div>
+            <div class="drop-use">Amazon QR returns · free · no box needed</div>
+          </div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-icon">🏛</div>
+          <div class="drop-info">
+            <div class="drop-name">Amazon Locker — Mellophone (Harris)</div>
+            <div class="drop-addr">6200 S Drexel Ave (Harris building) — on campus</div>
+            <div class="drop-hours">Open 24/7 — closest to south dorms</div>
+            <div class="drop-use">On-campus Amazon locker · closest to Woodlawn + RGG</div>
+          </div>
+        </div>
+        <div class="drop-card">
+          <div class="drop-icon">📮</div>
+          <div class="drop-info">
+            <div class="drop-name">FedEx Office — 57th St</div>
+            <div class="drop-addr">1315 E 57th St</div>
+            <div class="drop-hours">Mon–Fri 8am–7pm · Sat 9–6 · Sun 12–6</div>
+            <div class="drop-use">FedEx pre-labeled packages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ DORMS ══════════════════ -->
+<div class="pg" id="dorms">
+  <div class="w">
+    <div class="lbl">Pickup Dorms — Our Box Is In Each One</div>
+    <div class="h1">FIND YOUR<br>DORM BOX.</div>
+    <div style="background:var(--m);border-radius:14px;padding:18px 22px;margin-bottom:24px;">
+      <div style="font-family:'Bebas Neue';font-size:26px;color:#fff;letter-spacing:.04em;margin-bottom:6px;">WE PICK UP EVERY MONDAY & FRIDAY</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;">We place a labeled "Runs N Returns 📦" box in each dorm's package room. Drop your return in the box with your name, room number, and QR code taped to the package. DM us to confirm + pay. We collect on Monday and Friday mornings.</div>
+    </div>
+    <div class="dorm-grid">
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 1</div>
+        <div class="dorm-name" style="margin-top:6px;">Campus North</div>
+        <div class="dorm-addr">5500 S University Ave · 60637</div>
+        <div class="dorm-pickup">📦 Box: lobby mail area</div>
+      </div>
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 2</div>
+        <div class="dorm-name" style="margin-top:6px;">Max Palevsky</div>
+        <div class="dorm-addr">1101 E 56th St · 60637</div>
+        <div class="dorm-pickup">📦 Box: ground floor mail room</div>
+      </div>
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 3</div>
+        <div class="dorm-name" style="margin-top:6px;">Breckinridge House</div>
+        <div class="dorm-addr">E 59th St · 60637</div>
+        <div class="dorm-pickup">📦 Box: near front desk mailroom</div>
+      </div>
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 4</div>
+        <div class="dorm-name" style="margin-top:6px;">Burton-Judson Courts</div>
+        <div class="dorm-addr">1005 E 60th St · 60637</div>
+        <div class="dorm-pickup">📦 Box: Cathey-side package room</div>
+      </div>
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 5</div>
+        <div class="dorm-name" style="margin-top:6px;">Renee Granville-Grossman</div>
+        <div class="dorm-addr">6031 S Ellis Ave · 60637</div>
+        <div class="dorm-pickup">📦 Box: ground floor mail cubbies</div>
+      </div>
+      <div class="dorm-card">
+        <div class="dorm-stop">Stop 6</div>
+        <div class="dorm-name" style="margin-top:6px;">Woodlawn Commons</div>
+        <div class="dorm-addr">1156 E 61st St · 60637</div>
+        <div class="dorm-pickup">📦 Box: near laundry mail room</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:var(--bl);border-radius:14px;padding:22px;">
+      <div style="font-family:'Bebas Neue';font-size:22px;color:#fff;margin-bottom:12px;">THE BOX SIGN — PRINT AND TAPE TO EACH BOX</div>
+      <div style="background:#fff;border-radius:12px;padding:0;overflow:hidden;max-width:340px;">
+        <div style="background:var(--m);padding:20px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:8px;">📦</div>
+          <div style="font-family:'Bebas Neue';font-size:26px;color:#fff;letter-spacing:.04em;line-height:1.1;">RUNS N RETURNS</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:5px;">UChicago's package return crew</div>
+        </div>
+        <div style="padding:16px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Leave your return here 👇</div>
+          <div style="font-size:12px;color:var(--gy);line-height:1.8;">1. Tape your QR return code to package<br>2. Write name + room # on it<br>3. Drop in this box<br>4. DM us on Instagram to confirm + pay<br>5. We pick up <strong>Monday & Friday mornings</strong></div>
+          <div style="background:#fde8e8;border-radius:8px;padding:10px;margin-top:12px;text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:var(--m);">$7 flat fee · @runsnreturns.uc</div>
+            <div style="font-size:11px;color:var(--gy);margin-top:2px;">Receipt sent same day · Venmo or Zelle</div>
+          </div>
+        </div>
+      </div>
+      <button class="cbtn" onclick="window.print()" style="margin-top:14px;">Print Box Sign</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ROUTE ══════════════════ -->
+<div class="pg" id="route">
+  <div class="w-sm">
+    <div class="lbl">Monday & Friday Route</div>
+    <div class="h1">THE RUN.</div>
+    <p class="body">One 2.5-hour loop covers all return pickups, all grocery shopping, all return drop-offs, and all grocery deliveries. This is the full batch route both days.</p>
+    <div class="g2" style="margin-bottom:20px;">
+      <div style="background:var(--m);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'Bebas Neue';font-size:40px;color:#fff;">2.5 hrs</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.1em;">total route time</div>
+      </div>
+      <div style="background:var(--m);border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'Bebas Neue';font-size:40px;color:#fff;">Mon+Fri</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.1em;">pickup days</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px;">Full Monday / Friday Schedule</div>
+      <div class="sched-row"><div class="sched-time">9:00 am</div><div class="sched-text">Order cutoff — confirm all grocery orders, collect payment before leaving</div></div>
+      <div class="sched-row"><div class="sched-time">10:00 am</div><div class="sched-text">Start route — Campus North (stop 1) · collect R&N box</div></div>
+      <div class="sched-row"><div class="sched-time">10:12</div><div class="sched-text">Max Palevsky (stop 2) · collect box, drop any grocery orders</div></div>
+      <div class="sched-row"><div class="sched-time">10:22</div><div class="sched-text">Breckinridge (stop 3) · collect box</div></div>
+      <div class="sched-row"><div class="sched-time">10:30</div><div class="sched-text">Burton-Judson (stop 4) · collect box</div></div>
+      <div class="sched-row"><div class="sched-time">10:38</div><div class="sched-text">Renee GG (stop 5) · collect box</div></div>
+      <div class="sched-row"><div class="sched-time">10:46</div><div class="sched-text">Woodlawn (stop 6) · collect box · south campus done</div></div>
+      <div class="sched-row"><div class="sched-time">11:00 am</div><div class="sched-text">Trader Joe's (1528 E 55th) — shop ALL grocery orders at once (35–40 min)</div></div>
+      <div class="sched-row"><div class="sched-time">11:45</div><div class="sched-text">UPS Store (53rd St) — drop ALL returns, scan QR codes, photograph receipts</div></div>
+      <div class="sched-row"><div class="sched-time">12:05 pm</div><div class="sched-text">Deliver groceries to each dorm on the way back home · text each customer "5 min away"</div></div>
+      <div class="sched-row" style="border-bottom:none;"><div class="sched-time">12:30 pm</div><div class="sched-text">Done. Send receipt photos to all return customers via DM.</div></div>
+    </div>
+    <div style="background:#e8f5e8;border-radius:12px;padding:16px;margin-top:16px;border:1.5px solid #b8d8b8;">
+      <div style="font-weight:700;font-size:14px;color:var(--gn);margin-bottom:6px;">Why this route is efficient</div>
+      <div style="font-size:13px;color:#2a5a2a;line-height:1.7;">You're already going to TJ's and UPS. Picking up packages from dorms on the way costs near-zero extra time — you're walking through campus anyway. Batching all grocery orders means one big shop covers 5–8 customers at once. Total work time: ~5 hours/week for both days. That's it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PAYMENT ══════════════════ -->
+<div class="pg" id="pay">
+  <div class="w-sm">
+    <div class="lbl">Payment</div>
+    <div class="h1">PAY FIRST.<br>WE GO.</div>
+    <div style="background:#fff8f0;border:1.5px solid #f5a623;border-radius:12px;padding:16px;margin-bottom:22px;font-size:13px;color:#7a4000;line-height:1.6;">
+      <strong style="display:block;color:#5a2000;margin-bottom:4px;">⚠️ We confirm payment before every run — no exceptions</strong>
+      This protects both of us. We send the request, you pay, we go. Simple and fair.
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+        <div style="width:48px;height:48px;border-radius:12px;background:#008060;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">💚</div>
+        <div><div style="font-family:'Bebas Neue';font-size:26px;color:#008060;letter-spacing:.04em;">VENMO</div><div style="font-size:12px;color:var(--gy);">Preferred — instant notification</div></div>
+        <div style="margin-left:auto;background:#e8f5f0;color:#008060;font-size:13px;font-weight:700;padding:8px 14px;border-radius:10px;">@runsNreturns</div>
+      </div>
+      <div style="font-size:13px;color:var(--gy);line-height:1.7;">We send you a Venmo request for the exact amount. Pay it — we get the notification and leave. Add your name + dorm in the note. (e.g. "Maya — Max P 312")</div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+        <div style="width:48px;height:48px;border-radius:12px;background:#4B6BFB;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">💙</div>
+        <div><div style="font-family:'Bebas Neue';font-size:26px;color:#4B6BFB;letter-spacing:.04em;">ZELLE</div><div style="font-size:12px;color:var(--gy);">Bank-to-bank, instant</div></div>
+        <div style="margin-left:auto;background:#eef0ff;color:#4B6BFB;font-size:13px;font-weight:700;padding:8px 14px;border-radius:10px;">[your number]</div>
+      </div>
+      <div style="font-size:13px;color:var(--gy);line-height:1.7;">We send our Zelle info when confirming your order. Works with most bank apps — Chase, BoA, Wells Fargo, etc.</div>
+    </div>
+    <div style="background:#f5f0ea;border-radius:12px;padding:20px;">
+      <div style="font-weight:700;font-size:15px;margin-bottom:14px;">Full pricing breakdown</div>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;padding:11px 0;border-bottom:1px solid var(--br);"><span>🛒 Grocery Run (any list size)</span><span style="font-weight:700;color:var(--m);">$20</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;padding:11px 0;border-bottom:1px solid var(--br);"><span>📦 Package Return (any size)</span><span style="font-weight:700;color:var(--m);">$7</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;padding:11px 0;border-bottom:1px solid var(--br);"><span>🛒📦 Grocery Run + Return (same trip)</span><span style="font-weight:700;color:var(--m);">$25</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;padding:11px 0;border-bottom:1px solid var(--br);color:var(--gn);"><span>💸 Referral discount (per referral)</span><span style="font-weight:700;">−$5 each</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;padding:11px 0;color:var(--gy);"><span>Groceries cost</span><span>Exact receipt amount (you pay actual cost)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ POSTERS ══════════════════ -->
+<div class="pg" id="posters">
+  <div class="w">
+    <div class="lbl">Print These · Put Them Everywhere</div>
+    <div class="h1">DORM POSTERS.</div>
+    <p class="body">Print these and tape them in laundry rooms, elevator lobbies, bathroom doors, and common rooms in every dorm. The more the better.</p>
+    <div class="g2">
+      <div>
+        <div class="poster">
+          <div class="p-hdr" style="background:var(--m);">
+            <div class="p-badge">UChicago Only · @runsnreturns.uc 🐾</div>
+            <div class="p-q">Too lazy to return your packages?</div>
+            <div class="p-a">WE'LL DO IT<br>FOR YOU.</div>
+          </div>
+          <div class="p-bod">
+            <div class="p-row"><div class="p-dot"></div>Leave it in our box in your package room</div>
+            <div class="p-row"><div class="p-dot"></div>DM us your QR code on Instagram</div>
+            <div class="p-row"><div class="p-dot"></div>We pick up Mon & Fri — receipt same day</div>
+            <div style="height:1px;background:#f0f0f0;margin:12px 0;"></div>
+            <div class="p-ref"><strong>💸 Refer a friend → you both get $5 off</strong>DM us their name when ordering</div>
+            <div style="font-size:11px;color:var(--gy);">Order: DM us or use link in bio · $7 flat fee</div>
+          </div>
+          <div class="p-foot"><div class="p-handle">@runsnreturns.uc</div><div class="p-pill">DM to order</div></div>
+        </div>
+        <button class="cbtn" onclick="window.print()" style="margin-top:12px;">🖨 Print</button>
+      </div>
+      <div>
+        <div class="poster">
+          <div class="p-hdr" style="background:var(--bl);">
+            <div class="p-badge">Hyde Park · Trader Joe's · UChicago</div>
+            <div class="p-q">Too lazy to do your TJ's groceries?</div>
+            <div class="p-a">WE'LL DO IT<br>FOR YOU.</div>
+          </div>
+          <div class="p-bod">
+            <div class="p-row"><div class="p-dot"></div>Trader Joe's has NO delivery service</div>
+            <div class="p-row"><div class="p-dot"></div>We shop your list & deliver to your dorm</div>
+            <div class="p-row"><div class="p-dot"></div>$20 flat fee · pay before we go</div>
+            <div style="height:1px;background:#f0f0f0;margin:12px 0;"></div>
+            <div class="p-ref"><strong>💸 Refer a friend → you both get $5 off</strong>DM us their name when ordering</div>
+            <div style="font-size:11px;color:var(--gy);">Order: DM us or use link in bio · Mon & Fri runs</div>
+          </div>
+          <div class="p-foot" style="background:var(--bl);"><div class="p-handle">@runsnreturns.uc</div><div class="p-pill">DM to order</div></div>
+        </div>
+        <button class="cbtn" onclick="window.print()" style="margin-top:12px;">🖨 Print</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ INSTAGRAM ══════════════════ -->
+<div class="pg" id="ig">
+  <div class="w">
+    <div class="lbl">Instagram Content</div>
+    <div class="h1">POST THESE.</div>
+    <div style="background:#f5f0ea;border-radius:12px;padding:14px 16px;margin-bottom:22px;">
+      <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Your bio (copy-paste ready)</div>
+      <div style="font-family:monospace;font-size:13px;line-height:1.8;">your campus errand crew 🐾<br>─────────────────────<br>🛒 TJ's groceries — $20 flat<br>📦 package returns — $7 flat<br>🏠 delivered to your dorm<br>─────────────────────<br>UChicago only · DM to order ↓</div>
+      <button class="cbtn" onclick="cp(this,'your campus errand crew 🐾\n─────────────────────\n🛒 TJ\'s groceries — $20 flat\n📦 package returns — $7 flat\n🏠 delivered to your dorm\n─────────────────────\nUChicago only · DM to order ↓')">Copy Bio</button>
+    </div>
+    <div class="ig-grid">
+      <div class="ig-card">
+        <div class="ig-img" style="background:var(--m);">
+          <div class="ig-ic">🛒📦</div>
+          <div class="ig-head">WE'RE LIVE.</div>
+          <div class="ig-sub">@runsnreturns.uc · UChicago only</div>
+        </div>
+        <div class="ig-cap">
+          <div class="ig-cap-lbl">Post 1 — Launch Day</div>
+          <div class="ig-cap-text">your campus errand crew is open 🐾
+
+too lazy to return packages? $7. we pick it up. 📦
+too lazy for TJ's? $20. we shop and deliver. 🛒
+
+trader joe's has no delivery service.
+we fixed that.
+
+link in bio to order · DM us · pay first then we run
+
+#UChicago #HydePark #UChicagoStudents #TraderJoes</div>
+          <button class="cbtn" onclick="cp(this,'your campus errand crew is open 🐾\n\ntoo lazy to return packages? $7. we pick it up. 📦\ntoo lazy for TJ\'s? $20. we shop and deliver. 🛒\n\ntrader joe\'s has no delivery service.\nwe fixed that.\n\nlink in bio to order · DM us · pay first then we run\n\n#UChicago #HydePark #UChicagoStudents #TraderJoes')">Copy Caption</button>
+        </div>
+      </div>
+      <div class="ig-card">
+        <div class="ig-img" style="background:var(--bl);">
+          <div class="ig-ic">📦</div>
+          <div class="ig-head">$7. DONE.</div>
+          <div class="ig-sub">package returns · dorm pickup</div>
+        </div>
+        <div class="ig-cap">
+          <div class="ig-cap-lbl">Post 2 — Returns</div>
+          <div class="ig-cap-text">that amazon package has been sitting there for 3 weeks 😭
+
+drop it in our box in your dorm package room.
+DM us your QR code.
+we handle the rest.
+
+$7 flat. receipt same day.
+picked up every monday & friday.
+
+@runsnreturns.uc · UChicago only
+
+#DormLife #UChicago #AmazonReturn #CollegeLife</div>
+          <button class="cbtn" onclick="cp(this,'that amazon package has been sitting there for 3 weeks 😭\n\ndrop it in our box in your dorm package room.\nDM us your QR code.\nwe handle the rest.\n\n$7 flat. receipt same day.\npicked up every monday & friday.\n\n@runsnreturns.uc · UChicago only\n\n#DormLife #UChicago #AmazonReturn #CollegeLife')">Copy Caption</button>
+        </div>
+      </div>
+      <div class="ig-card">
+        <div class="ig-img" style="background:#1a3a1a;">
+          <div class="ig-ic">🥬🥛🍞</div>
+          <div class="ig-head">TJ'S TO<br>YOUR DOOR.</div>
+          <div class="ig-sub">$20 flat · any list size</div>
+        </div>
+        <div class="ig-cap">
+          <div class="ig-cap-lbl">Post 3 — Groceries</div>
+          <div class="ig-cap-text">trader joe's doesn't have doordash.
+trader joe's doesn't have instacart.
+trader joe's doesn't deliver.
+
+we do. 🛒
+
+send us your list → we shop → we deliver to your dorm.
+$20 flat fee. any size order.
+
+use the calculator on our site to price your list first 👆
+
+#TraderJoes #UChicago #HydePark #GroceryDelivery</div>
+          <button class="cbtn" onclick="cp(this,'trader joe\'s doesn\'t have doordash.\ntrader joe\'s doesn\'t have instacart.\ntrader joe\'s doesn\'t deliver.\n\nwe do. 🛒\n\nsend us your list → we shop → we deliver to your dorm.\n$20 flat fee. any size order.\n\nuse the calculator on our site to price your list first 👆\n\n#TraderJoes #UChicago #HydePark #GroceryDelivery')">Copy Caption</button>
+        </div>
+      </div>
+      <div class="ig-card">
+        <div class="ig-img" style="background:var(--m);">
+          <div class="ig-ic">💸</div>
+          <div class="ig-head">REFER &<br>SAVE $5.</div>
+          <div class="ig-sub">no limit on referrals</div>
+        </div>
+        <div class="ig-cap">
+          <div class="ig-cap-lbl">Post 4 — Referral</div>
+          <div class="ig-cap-text">refer a friend → you both get $5 off 💸
+
+literally just tell someone about us and you save money.
+
+tag them below 👇 or dm us their name with your next order.
+
+no limit on referrals. stack that bread.
+
+@runsnreturns.uc · @runsnreturns.uc · @runsnreturns.uc
+
+#UChicago #ReferAFriend #HydePark</div>
+          <button class="cbtn" onclick="cp(this,'refer a friend → you both get $5 off 💸\n\nliterally just tell someone about us and you save money.\n\ntag them below 👇 or dm us their name with your next order.\n\nno limit on referrals. stack that bread.\n\n@runsnreturns.uc\n\n#UChicago #ReferAFriend #HydePark')">Copy Caption</button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:22px;" class="card">
+      <div style="font-weight:700;font-size:14px;margin-bottom:12px;">Story sequence — post these launch week</div>
+      <div class="cbox">
+        <div class="ctext">Story 1 — Poll:
+"would you pay $20 for someone to do your TJ's run?"
+[YES obviously] [nah im good]
+
+Story 2 — Poll:
+"how long has that amazon package been sitting there"
+[under a week] [don't ask]
+
+Story 3 — Reveal:
+"we'll do it for you. $7 for returns. $20 for groceries."
+@runsnreturns.uc just launched · link in bio
+
+Story 4 — Urgency:
+"only 15 orders per week ⚡ 3 already gone"
+[link sticker]
+
+Story 5 — Repost every share with:
+"word is spreading 🐾 tag someone who needs this"</div>
+        <button class="cbtn" onclick="cp(this,'Story 1 — Poll:\n\'would you pay $20 for someone to do your TJ\'s run?\'\n[YES obviously] [nah im good]\n\nStory 2 — Poll:\n\'how long has that amazon package been sitting there\'\n[under a week] [don\'t ask]\n\nStory 3 — Reveal:\n\'we\'ll do it for you. $7 for returns. $20 for groceries.\'\n@runsnreturns.uc just launched · link in bio\n\nStory 4 — Urgency:\n\'only 15 orders per week ⚡ 3 already gone\'\n[link sticker]\n\nStory 5 — Repost every share with:\n\'word is spreading 🐾 tag someone who needs this\'')">Copy Story Sequence</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MESSAGES ══════════════════ -->
+<div class="pg" id="comms">
+  <div class="w-sm">
+    <div class="lbl">Copy-Paste Communication</div>
+    <div class="h1">EVERY<br>MESSAGE.</div>
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px;">WhatsApp Group Launch Message</div>
+      <div class="cbox"><div class="ctext">hey everyone 👋
+
+we just launched Runs N Returns — a student-run errand service for UChicago students 🐾
+
+too lazy to return your packages? $7. we pick it up from your dorm and drop it off. 📦
+too lazy for TJ's groceries? $20. we shop your list and deliver to your door. 🛒
+
+trader joe's has NO delivery service. we fixed that.
+
+✅ pay before we go (venmo or zelle)
+✅ picked up every monday & friday
+✅ refer a friend → both get $5 off
+✅ max 15 orders/week — order early
+
+order here 👉 [your form link]
+or DM us → @runsnreturns.uc
+
+drop a 🛒 if you'd use this!</div>
+        <button class="cbtn" onclick="cp(this,this.previousElementSibling.textContent)">Copy</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px;">Order Confirmation (send after they submit)</div>
+      <div class="cbox"><div class="ctext">hey [name]! got your order 🛒
+
+confirming:
+— [service: grocery run / package return / both]
+— [details]
+— total: $[amount]
+— pickup: [Monday / Friday]
+
+sending you a venmo request now for $[amount] — @runsNreturns
+once that clears, we're good to go! 
+
+any changes? lmk before [day] 9am 🙌
+— runs n returns</div>
+        <button class="cbtn" onclick="cp(this,this.previousElementSibling.textContent)">Copy</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px;">On Our Way Message</div>
+      <div class="cbox"><div class="ctext">hey [name]! your [groceries / return] is on the way 🚶
+dropping off in ~10 min · i'll leave it at your door
+[for returns: photo of receipt attached ✅]
+
+— runs n returns 🐾</div>
+        <button class="cbtn" onclick="cp(this,this.previousElementSibling.textContent)">Copy</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px;">Delivery Confirmation</div>
+      <div class="cbox"><div class="ctext">hey! your [groceries are at your door / return has been dropped off ✅]
+
+[for returns: here's your receipt photo 👆]
+[for groceries: couldn't find: [item] — substituted with [item] or left off, lmk!]
+
+if you liked the service, refer a friend → both get $5 off next order 💸
+— @runsnreturns.uc</div>
+        <button class="cbtn" onclick="cp(this,this.previousElementSibling.textContent)">Copy</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px;">DM Template for Individuals</div>
+      <div class="cbox"><div class="ctext">hey! me and a friend just started runs n returns — we do trader joe's grocery runs ($20) and amazon package returns ($7) delivered to your dorm at uchicago.
+
+TJ's literally has no delivery service so we're the only option lol
+
+interested? link in bio for the order form or just DM us. refer a friend and you both get $5 off 🙌</div>
+        <button class="cbtn" onclick="cp(this,this.previousElementSibling.textContent)">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SHEETS ══════════════════ -->
+<div class="pg" id="sheets">
+  <div class="w">
+    <div class="lbl">Google Workspace — Track Everything</div>
+    <div class="h1">YOUR BACK<br>OFFICE.</div>
+    <p class="body">Set up these Google tools. Link them together so everything flows automatically from order to delivery to tracking.</p>
+    <div class="glink" onclick="window.open('https://forms.google.com','_blank')">
+      <div class="glink-icon">📋</div>
+      <div><div class="glink-title">Google Forms — Order Form</div><div class="glink-desc">Where customers submit orders. Set up at forms.google.com. Responses auto-feed into your Google Sheet. Link this in your Instagram bio.</div></div>
+      <button class="glink-btn">Open Forms ↗</button>
+    </div>
+    <div class="glink" onclick="window.open('https://sheets.google.com','_blank')">
+      <div class="glink-icon">📊</div>
+      <div><div class="glink-title">Google Sheets — Orders Tracker</div><div class="glink-desc">Auto-connected to your Form. Track every order: name, dorm, service, amount, payment status, delivery status. Add a Revenue tab to see weekly profit.</div></div>
+      <button class="glink-btn">Open Sheets ↗</button>
+    </div>
+    <div class="glink" onclick="window.open('https://drive.google.com','_blank')">
+      <div class="glink-icon">📁</div>
+      <div><div class="glink-title">Google Drive — Receipt Photos</div><div class="glink-desc">Create a folder for each week. Upload receipt photos from returns and grocery receipts here. Share folder link with your partner.</div></div>
+      <button class="glink-btn">Open Drive ↗</button>
+    </div>
+    <div class="glink" onclick="window.open('https://docs.google.com','_blank')">
+      <div class="glink-icon">📄</div>
+      <div><div class="glink-title">Google Docs — Operations Manual</div><div class="glink-desc">Document your exact process, dorm box locations, pickup schedule, pricing, and scripts. Share with your partner so you're always aligned.</div></div>
+      <button class="glink-btn">Open Docs ↗</button>
+    </div>
+
+    <div class="card" style="margin-top:4px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:14px;">Google Sheets — Tracker columns to set up</div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <tr style="background:var(--m);color:#fff;">
+            <th style="padding:8px 12px;text-align:left;">Column</th>
+            <th style="padding:8px 12px;text-align:left;">What to put here</th>
+          </tr>
+          <tr style="border-bottom:1px solid var(--br);"><td style="padding:8px 12px;font-weight:600;">Date</td><td style="padding:8px 12px;color:var(--gy);">Order date (auto from Form)</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Customer Name</td><td style="padding:8px 12px;color:var(--gy);">From Form</td></tr>
+          <tr style="border-bottom:1px solid var(--br);"><td style="padding:8px 12px;font-weight:600;">Dorm + Room</td><td style="padding:8px 12px;color:var(--gy);">From Form</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Service Type</td><td style="padding:8px 12px;color:var(--gy);">Grocery / Return / Both</td></tr>
+          <tr style="border-bottom:1px solid var(--br);"><td style="padding:8px 12px;font-weight:600;">Grocery Cost</td><td style="padding:8px 12px;color:var(--gy);">Actual TJ's receipt amount</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Service Fee</td><td style="padding:8px 12px;color:var(--gy);">$20, $7, or $25</td></tr>
+          <tr style="border-bottom:1px solid var(--br);"><td style="padding:8px 12px;font-weight:600;">Referral Discount</td><td style="padding:8px 12px;color:var(--gy);">$5 or $0</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Total Charged</td><td style="padding:8px 12px;color:var(--gy);">Fee − discount (auto formula)</td></tr>
+          <tr style="border-bottom:1px solid var(--br);"><td style="padding:8px 12px;font-weight:600;">Paid?</td><td style="padding:8px 12px;color:var(--gy);">✅ / ❌ — check off when Venmo clears</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Delivered?</td><td style="padding:8px 12px;color:var(--gy);">✅ / ❌ — check off when done</td></tr>
+          <tr style="background:#fafaf8;"><td style="padding:8px 12px;font-weight:600;">Receipt Photo</td><td style="padding:8px 12px;color:var(--gy);">Link to Google Drive photo</td></tr>
+        </table>
+      </div>
+      <div style="margin-top:14px;font-size:13px;color:var(--gy);line-height:1.7;">
+        Add a second sheet called <strong>"Weekly Revenue"</strong> with: Week, # grocery runs, # returns, total service fees collected, total grocery costs, net profit. Run a SUM formula — your profit is service fees only, the grocery cost goes back to the customer.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LAUNCH PLAN ══════════════════ -->
+<div class="pg" id="plan">
+  <div class="w-sm">
+    <div class="lbl">Launch Checklist</div>
+    <div class="h1">DO THIS<br>IN ORDER.</div>
+    <div class="check-list">
+      <div class="check-item"><input type="checkbox" id="c1"><label class="check-label" for="c1"><strong>Create Instagram @runsnreturns.uc</strong><span>Switch to business account, paste bio, upload PFP, set location to Hyde Park Chicago, category: Delivery Service</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c2"><label class="check-label" for="c2"><strong>Build Google Form (order form)</strong><span>Use the fields in the Order tab. Set responses to feed a Google Sheet. Shorten link with bit.ly. Add to Instagram bio.</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c3"><label class="check-label" for="c3"><strong>Set up Google Sheet tracker</strong><span>Connect to your Form. Add all columns from the Sheets tab. Create a Weekly Revenue tab.</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c4"><label class="check-label" for="c4"><strong>Set up your Venmo as @runsNreturns</strong><span>Add a profile photo and bio. This is what customers will pay. Set up Zelle too with your phone number.</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c5"><label class="check-label" for="c5"><strong>Post launch content on Instagram</strong><span>Post 1 (launch day) + story sequence. Ask your friend to share from their account too. Tag UChicago-related accounts.</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c6"><label class="check-label" for="c6"><strong>Create WhatsApp group "Runs N Returns Orders"</strong><span>Add dorm floor chats you're in. Send the launch message. Set group description from the Messages tab.</span></label><span class="ctag now">Today</span></div>
+      <div class="check-item"><input type="checkbox" id="c7"><label class="check-label" for="c7"><strong>Make and place boxes in all 6 dorms</strong><span>Get 6 medium boxes. Print + tape the box sign from the Dorms tab. Ask your friend for access to dorm package rooms you don't have.</span></label><span class="ctag soon">This week</span></div>
+      <div class="check-item"><input type="checkbox" id="c8"><label class="check-label" for="c8"><strong>Print and post posters in every dorm</strong><span>Both poster versions. Target: laundry rooms, elevator lobbies, bathroom doors, common rooms. 3–4 per dorm.</span></label><span class="ctag soon">This week</span></div>
+      <div class="check-item"><input type="checkbox" id="c9"><label class="check-label" for="c9"><strong>Send launch message to every group chat</strong><span>Every dorm floor chat, class chat, friend group. Both of you send it from your own numbers for more reach.</span></label><span class="ctag soon">This week</span></div>
+      <div class="check-item"><input type="checkbox" id="c10"><label class="check-label" for="c10"><strong>Do first 3 runs at a discount</strong><span>Offer $5 off first orders to early customers. Get them to share their experience. Real social proof beats any ad.</span></label><span class="ctag soon">Week 1</span></div>
+      <div class="check-item"><input type="checkbox" id="c11"><label class="check-label" for="c11"><strong>Confirm pickup schedule publicly</strong><span>Post a story: "we run every Monday & Friday — order before 9am to get on that week's run." Make the schedule predictable.</span></label><span class="ctag soon">Week 1</span></div>
+      <div class="check-item"><input type="checkbox" id="c12"><label class="check-label" for="c12"><strong>Check UChicago rules on student businesses</strong><span>Email the Dean of Students office or check the student handbook. Most schools allow small student services but confirm before scaling.</span></label><span class="ctag soon">Week 1</span></div>
+      <div class="check-item"><input type="checkbox" id="c13"><label class="check-label" for="c13"><strong>Review your first week finances</strong><span>Open your Google Sheet. Calculate: total service fees − any discounts = your profit. Are you hitting 10+ orders? Adjust if not.</span></label><span class="ctag later">Week 2</span></div>
+      <div class="check-item"><input type="checkbox" id="c14"><label class="check-label" for="c14"><strong>Start weekly repeat order system</strong><span>Offer "weekly standing order" — same TJ's list every Friday, slight discount for regulars. Predictable income = easier planning.</span></label><span class="ctag later">Month 2</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Navigation ──
+function go(id, el) {
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(el) el.classList.add('on');
+  else document.querySelectorAll('.tab').forEach(t=>{
+    if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('on');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── Order form ──
+function toggleFields(){
+  const v=document.getElementById('svc-sel').value;
+  document.getElementById('grocery-field').style.display=(v==='grocery'||v==='both')?'block':'none';
+  document.getElementById('return-field').style.display=(v==='return'||v==='both')?'block':'none';
+}
+
+// ── Calculator ──
+let items=[];
+function quickAdd(){
+  const s=document.getElementById('quick-add');
+  if(!s.value) return;
+  const [name,price]=s.value.split('|');
+  items.push({name,price:parseFloat(price)});
+  s.value='';
+  renderItems(); updateReceipt();
+}
+function addItem(){
+  const n=document.getElementById('item-name').value.trim();
+  const p=parseFloat(document.getElementById('item-price').value);
+  if(!n||isNaN(p)||p<0) return;
+  items.push({name:n,price:p});
+  document.getElementById('item-name').value='';
+  document.getElementById('item-price').value='';
+  renderItems(); updateReceipt();
+}
+function removeItem(i){
+  items.splice(i,1);
+  renderItems(); updateReceipt();
+}
+function renderItems(){
+  const el=document.getElementById('items-list');
+  const tot=document.getElementById('totals');
+  const rw=document.getElementById('receipt-wrap');
+  if(!items.length){
+    el.innerHTML='<div style="font-size:13px;color:var(--gy);text-align:center;padding:16px;">No items yet — add from the list above</div>';
+    tot.style.display='none'; rw.style.display='none'; return;
+  }
+  el.innerHTML=items.map((item,i)=>`
+    <div class="calc-item">
+      <span class="calc-name">${item.name}</span>
+      <span class="calc-price">$${item.price.toFixed(2)}</span>
+      <button class="calc-remove" onclick="removeItem(${i})">×</button>
+    </div>`).join('');
+  tot.style.display='block';
+  rw.style.display='block';
+  const sub=items.reduce((s,i)=>s+i.price,0);
+  const ref=document.getElementById('ref-check').checked;
+  const total=sub+20-(ref?5:0);
+  document.getElementById('subtotal-val').textContent='$'+sub.toFixed(2);
+  document.getElementById('total-val').textContent='$'+total.toFixed(2);
+  document.getElementById('discount-row').style.display=ref?'flex':'none';
+}
+function updateReceipt(){
+  renderItems();
+  if(!items.length) return;
+  const name=document.getElementById('r-name').value||'[Customer]';
+  const dorm=document.getElementById('r-dorm').value||'[Dorm + room]';
+  const sub=items.reduce((s,i)=>s+i.price,0);
+  const ref=document.getElementById('ref-check').checked;
+  const total=sub+20-(ref?5:0);
+  const date=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  const lines=items.map(i=>`  ${i.name.padEnd(26)} $${i.price.toFixed(2)}`).join('\n');
+  document.getElementById('receipt-text').textContent=`hey ${name}! here's your grocery receipt 🧾
+
+📍 Delivering to: ${dorm}
+📅 ${date}
+
+ITEMS FROM TRADER JOE'S
+────────────────────────────
+${lines}
+────────────────────────────
+  Grocery subtotal           $${sub.toFixed(2)}
+  Service fee (flat)         $20.00${ref?'\n  Referral discount         -$5.00':''}
+────────────────────────────
+  YOU OWE TOTAL              $${total.toFixed(2)}
+────────────────────────────
+
+💸 Send $${total.toFixed(2)} via Venmo → @runsNreturns
+before we go! then we're on it 🛒
+
+— @runsnreturns.uc`;
+}
+function copyReceipt(btn){
+  const t=document.getElementById('receipt-text').textContent;
+  navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ Copied!';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Copy Receipt to DM';btn.classList.remove('ok');},2000);});
+}
+
+// ── TJ's click-to-add ──
+function addToCalc(name,price){
+  items.push({name,price});
+  go('calc',null);
+  setTimeout(()=>{renderItems();updateReceipt();},100);
+}
+
+// ── Copy helper ──
+function cp(btn,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.textContent;
+    btn.textContent='✓ Copied!'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('ok');},2000);
+  });
+}
+</script>
+</body>
+</html>
